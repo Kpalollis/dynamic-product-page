@@ -1,0 +1,402 @@
+<div data-product-tabs>
+  <div class="product-trust-bar" aria-label="Πληροφορίες αποστολής και ασφάλειας">
+    <div class="trust-item">
+      <div style="font-size: 40px; line-height: 1;">🚚</div>
+      <span>Δωρεάν Μεταφορικά<br>άνω των 20€</span>
+    </div>
+
+    <div class="trust-item">
+      <div style="font-size: 40px; line-height: 1;">✈️</div>
+      <span>Άμεση Παράδοση<br>24-48 ώρες</span>
+    </div>
+
+    <div class="trust-item">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M32 12 L48 20 L48 34 C48 46 32 54 32 54 C32 54 16 46 16 34 L16 20 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M26 34 L30 38 L38 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Ασφαλείς<br>Συναλλαγές</span>
+    </div>
+  </div>
+
+  <nav>
+    <button class="active" data-tab="info">ΠΛΗΡΟΦΟΡΙΕΣ</button>
+    <button data-tab="description">ΠΕΡΙΓΡΑΦΗ</button>
+    <button data-tab="ingredients">ΣΥΣΤΑΤΙΚΑ</button>
+    <button data-tab="dosologia">ΟΔΗΓΙΕΣ &amp; ΔΟΣΟΛΟΓΙΑ</button>
+    <button data-tab="reviews">ΑΞΙΟΛΟΓΗΣΕΙΣ</button>
+  </nav>
+
+  <div class="tab-content">
+    <div data-panel="info">
+      <div class="info-summary">
+        <p>Το προϊόν μας είναι μια ισορροπημένη και υψηλής ποιότητας τροφή για σκύλους, σχεδιασμένη για να υποστηρίζει την καθημερινή υγεία, την ενεργειακή στάθμη και την ευημερία του κατοικιδίου σου. Η σύνθεση του βασίζεται σε φυσικές πρώτες ύλες, με έμφαση στη θρεπτική αξία, την άνεση κατανάλωσης και τη σωστή διατροφή σε κάθε στάδιο ζωής.</p>
+        <ul>
+          <li>Υψηλής ποιότητας θρεπτικά συστατικά</li>
+          <li>Ισορροπημένη σύνθεση για καθημερινή σίτιση</li>
+          <li>Υποστήριξη για υγεία γούνας, δέρματος και πεπτικού</li>
+          <li>Χωρίς τεχνητά χρώματα και επιβλαβείς προσθήκες</li>
+          <li>Κατάλληλο για σκύλους όλων των ηλικιών</li>
+        </ul>
+      </div>
+    </div>
+
+    <div data-panel="description" hidden>
+      {{ product.description }}
+    </div>
+
+    <div data-panel="ingredients" hidden>
+      {% if product.metafields.custom.product_composition != blank %}
+        <div class="ingredients-copy">
+          <strong>Σύνθεση:</strong>
+          {{ product.metafields.custom.product_composition | metafield_tag }}
+        </div>
+      {% endif %}
+
+      {% if product.metafields.custom.systatika != blank %}
+        {{ product.metafields.custom.systatika | metafield_tag }}
+      {% endif %}
+
+      {% assign nutrition_data = product.metafields.custom.nutrition.value %}
+      {% if nutrition_data != blank %}
+        <section class="nutrition-analysis">
+          <h3>Διατροφική Ανάλυση</h3>
+
+          {% for item in nutrition_data %}
+            {% assign value = item.value | plus: 0 %}
+            {% if value < 0 %}
+              {% assign value = 0 %}
+            {% endif %}
+            {% if value > 100 %}
+              {% assign value = 100 %}
+            {% endif %}
+
+            <div class="nutrition-row">
+              <div class="nutrition-label">
+                <span>{{ item.label }}</span>
+                <strong>{{ item.value }}%</strong>
+              </div>
+              <div class="nutrition-bar">
+                <span style="width: {{ value }}%;">{{ item.value }}%</span>
+              </div>
+            </div>
+          {% endfor %}
+        </section>
+      {% endif %}
+
+      {% assign ingredient_meta = '' %}
+      {% if product.metafields.custom.prostheta_ana_kilo != blank or product.metafields.custom.thermides != blank %}
+        <div class="info-grid">
+          {% if product.metafields.custom.prostheta_ana_kilo != blank %}
+            <div class="info-card">
+              <strong>Πρόσθετα ανά Κιλό:</strong>
+              <p>{{ product.metafields.custom.prostheta_ana_kilo }}</p>
+            </div>
+          {% endif %}
+
+          {% if product.metafields.custom.thermides != blank %}
+            <div class="info-card">
+              <strong>Θερμίδες:</strong>
+              <p>{{ product.metafields.custom.thermides }}</p>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div data-panel="dosologia" hidden>
+      {% if product.metafields.custom.dosologia_text != blank %}
+        {{ product.metafields.custom.dosologia_text | metafield_tag }}
+      {% endif %}
+
+      {% assign rows = product.metafields.custom.dosologia_table.value %}
+      {% if rows != blank %}
+        <table class="dosologia-table">
+          <thead>
+            <tr>
+              <th>ΒΑΡΟΣ ΣΚΥΛΟΥ (ΣΕ ΚΙΛΑ)</th>
+              <th>ΗΜΕΡΗΣΙΑ ΠΟΣΟΤΗΤΑ ΤΡΟΦΗΣ (ΣΕ ΓΡΑΜΜΑΡΙΑ)</th>
+              <th>ΣΥΝΔΥΑΣΜΟΣ ΞΗΡΟ / ΥΓΡΟ (ΣΕ ΓΡΑΜΜΑΡΙΑ)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+              <tr>
+                <td>{{ row.weight }}</td>
+                <td>{{ row.amount }}</td>
+                <td>{{ row.combo }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </div>
+
+    <div data-panel="reviews" hidden></div>
+  </div>
+</div>
+
+<style>
+  [data-product-tabs] {
+    --tab-bg: #ffffff;
+    --tab-border: #ffffff;
+    --tab-text: #1d1d1d;
+    --tab-active: #1a1a1a;
+    --tab-accent: #7aa45d;
+    --panel-bg: #ffffff;
+    --table-bg: #6d7d59;
+    --table-text: #ffffff;
+  }
+
+  .product-trust-bar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: center;
+    padding: 10px 0 18px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    color: #171717;
+  }
+
+  .trust-item svg {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    color: #171717;
+  }
+
+  .trust-item span {
+    font-size: 14px;
+    line-height: 1.35;
+    font-weight: 500;
+    color: #171717;
+  }
+
+  [data-product-tabs] nav {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--tab-border);
+    background: var(--tab-bg);
+    padding: 0 12px;
+    scrollbar-width: thin;
+  }
+
+  [data-product-tabs] button {
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    color: var(--tab-text);
+    font: 600 13px/1.2 "Arial", sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 18px 4px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  [data-product-tabs] button.active {
+    border-bottom-color: var(--tab-active);
+    color: var(--tab-active);
+    font-weight: 700;
+  }
+
+  .tab-content {
+    padding-top: 24px;
+  }
+
+  .info-summary {
+    color: var(--tab-text);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  [data-panel][hidden] {
+    display: none !important;
+  }
+
+  .ingredients-copy {
+    margin: 0 0 18px;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    line-height: 1.7;
+    color: var(--tab-text);
+  }
+
+  .ingredients-copy strong {
+    display: inline-block;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+
+  .ingredients-copy p {
+    margin: 0;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 18px 0;
+  }
+
+  .info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+  }
+
+  .info-card strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--tab-text);
+    margin: 0;
+  }
+
+  .info-card p {
+    margin: 0;
+    font-size: 0.96rem;
+    line-height: 1.7;
+    color: var(--tab-text);
+  }
+
+  .nutrition-analysis {
+    display: grid;
+    gap: 16px;
+    margin-top: 12px;
+    padding: 18px 0;
+  }
+
+  .nutrition-analysis h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--tab-text);
+  }
+
+  .nutrition-row {
+    display: grid;
+    gap: 8px;
+  }
+
+  .nutrition-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.92rem;
+    color: var(--tab-text);
+  }
+
+  .nutrition-label strong {
+    font-weight: 700;
+  }
+
+  .nutrition-bar {
+    height: 26px;
+    background: #ece7df;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid #ddd2c3;
+  }
+
+  .nutrition-bar span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 36px;
+    height: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    background: linear-gradient(90deg, #7aa45d 0%, #5d8940 100%);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 999px;
+  }
+
+  .dosologia-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--table-bg);
+    color: var(--table-text);
+    text-align: center;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .dosologia-table thead {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  .dosologia-table th,
+  .dosologia-table td {
+    padding: 14px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: 0.8rem;
+    vertical-align: middle;
+  }
+
+  .dosologia-table th {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 640px) {
+    .product-trust-bar {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding-bottom: 14px;
+    }
+
+    .trust-item {
+      justify-content: flex-start;
+    }
+
+    [data-product-tabs] nav {
+      gap: 12px;
+    }
+
+    [data-product-tabs] button {
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      padding-top: 16px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    document.querySelectorAll('[data-product-tabs]').forEach(function (root) {
+      var tabs = root.querySelectorAll('[data-tab]');
+      var panels = root.querySelectorAll('[data-panel]');
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) {
+            t.classList.toggle('active', t === tab);
+          });
+
+          panels.forEach(function (panel) {
+            var target = tab.getAttribute('data-tab');
+            panel.hidden = panel.getAttribute('data-panel') !== target;
+          });
+        });
+      });
+    });
+  })();
+</script>
