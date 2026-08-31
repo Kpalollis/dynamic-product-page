@@ -29,20 +29,23 @@
 
   <div class="tab-content">
     <div data-panel="info">
-      <div class="info-summary">
-        <p>Το προϊόν μας είναι μια ισορροπημένη και υψηλής ποιότητας τροφή για σκύλους, σχεδιασμένη για να υποστηρίζει την καθημερινή υγεία, την ενεργειακή στάθμη και την ευημερία του κατοικιδίου σου. Η σύνθεση του βασίζεται σε φυσικές πρώτες ύλες, με έμφαση στη θρεπτική αξία, την άνεση κατανάλωσης και τη σωστή διατροφή σε κάθε στάδιο ζωής.</p>
-        <ul>
-          <li>Υψηλής ποιότητας θρεπτικά συστατικά</li>
-          <li>Ισορροπημένη σύνθεση για καθημερινή σίτιση</li>
-          <li>Υποστήριξη για υγεία γούνας, δέρματος και πεπτικού</li>
-          <li>Χωρίς τεχνητά χρώματα και επιβλαβείς προσθήκες</li>
-          <li>Κατάλληλο για σκύλους όλων των ηλικιών</li>
-        </ul>
-      </div>
+      {% if product.metafields.custom.info_text != blank %}
+        {{ product.metafields.custom.info_text | metafield_tag }}
+      {% elsif product.description != blank %}
+        {{ product.description }}
+      {% else %}
+        <p>Περιγραφή προϊόντος δεν είναι διαθέσιμη.</p>
+      {% endif %}
     </div>
 
     <div data-panel="description" hidden>
-      {{ product.description }}
+      {% if product.metafields.custom.description_text != blank %}
+        {{ product.metafields.custom.description_text | metafield_tag }}
+      {% elsif product.description != blank %}
+        {{ product.description }}
+      {% else %}
+        <p>Περιγραφή προϊόντος δεν είναι διαθέσιμη.</p>
+      {% endif %}
     </div>
 
     <div data-panel="ingredients" hidden>
@@ -212,12 +215,6 @@
 
   .tab-content {
     padding-top: 24px;
-  }
-
-  .info-summary {
-    color: var(--tab-text);
-    font-size: 15px;
-    line-height: 1.8;
   }
 
   [data-panel][hidden] {
