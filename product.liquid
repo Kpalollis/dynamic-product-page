@@ -29,23 +29,41 @@
 
   <div class="tab-content">
     <div data-panel="info">
-      {% if product.metafields.custom.info_text != blank %}
-        {{ product.metafields.custom.info_text | metafield_tag }}
-      {% elsif product.description != blank %}
-        {{ product.description }}
-      {% else %}
-        <p>Περιγραφή προϊόντος δεν είναι διαθέσιμη.</p>
-      {% endif %}
+      <div class="product-info-content">
+        <h1>{{ product.title }}</h1>
+
+        {% if product.metafields.custom.info_text != blank %}
+          {{ product.metafields.custom.info_text | metafield_tag }}
+        {% elsif product.description != blank %}
+          {{ product.description }}
+        {% else %}
+          <p>Περιγραφή προϊόντος δεν είναι διαθέσιμη.</p>
+        {% endif %}
+
+        {% assign recommended_for = product.metafields.custom.recommended_for %}
+        {% if recommended_for != blank %}
+          <h2>Για Ποιους Σκύλους Προτείνεται</h2>
+          {{ recommended_for | metafield_tag }}
+        {% endif %}
+
+        {% assign functional_benefits = product.metafields.custom.functional_benefits %}
+        {% if functional_benefits != blank %}
+          <h2>Λειτουργικά συστατικά &amp; οφέλη</h2>
+          {{ functional_benefits | metafield_tag }}
+        {% endif %}
+      </div>
     </div>
 
     <div data-panel="description" hidden>
-      {% if product.metafields.custom.description_text != blank %}
-        {{ product.metafields.custom.description_text | metafield_tag }}
-      {% elsif product.description != blank %}
-        {{ product.description }}
-      {% else %}
-        <p>Περιγραφή προϊόντος δεν είναι διαθέσιμη.</p>
-      {% endif %}
+      <div class="product-info-content">
+        {% if product.metafields.custom.description_text != blank %}
+          {{ product.metafields.custom.description_text | metafield_tag }}
+        {% elsif product.description != blank %}
+          {{ product.description }}
+        {% else %}
+          <p>Περιγραφή προϊόντος δεν είναι διαθέσιμη.</p>
+        {% endif %}
+      </div>
     </div>
 
     <div data-panel="ingredients" hidden>
@@ -219,6 +237,92 @@
 
   [data-panel][hidden] {
     display: none !important;
+  }
+
+  [data-panel] {
+    color: #1d1d1d;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.7;
+  }
+
+  .product-info-content {
+    max-width: 100%;
+  }
+
+  .product-info-content h1,
+  .product-info-content h2,
+  .product-info-content h3,
+  .product-info-content h4 {
+    margin: 0 0 16px;
+    color: #1d1d1d;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .product-info-content h1 {
+    font-size: 2.05rem;
+    margin-bottom: 18px;
+  }
+
+  .product-info-content h2 {
+    font-size: 1.4rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .product-info-content p {
+    margin: 0 0 18px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #1d1d1d;
+  }
+
+  .product-info-content ul,
+  .product-info-content ol {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 22px;
+  }
+
+  .product-info-content li {
+    position: relative;
+    margin: 0 0 10px;
+    padding-left: 26px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #1d1d1d;
+  }
+
+  .product-info-content li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #2e6d32;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 26px;
+  }
+
+  .benefits-list li {
+    padding-left: 24px;
+    margin-bottom: 8px;
+  }
+
+  .benefits-list li::before {
+    color: #2e6d32;
+  }
+
+  .benefits-list-stars li::before {
+    content: "★";
+    color: #2e6d32;
+    font-size: 12px;
+    top: 1px;
   }
 
   .ingredients-copy {
