@@ -1,0 +1,67 @@
+<div class="trust-bar-snippet">
+  <div class="product-trust-bar" aria-label="Πληροφορίες αποστολής και ασφάλειας">
+    <div class="trust-item">
+      <div style="font-size: 40px; line-height: 1;">🚚</div>
+      <span>Δωρεάν Μεταφορικά<br>άνω των 20€</span>
+    </div>
+
+    <div class="trust-item">
+      <div style="font-size: 40px; line-height: 1;">✈️</div>
+      <span>Άμεση Παράδοση<br>24-48 ώρες</span>
+    </div>
+
+    <div class="trust-item">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M32 12 L48 20 L48 34 C48 46 32 54 32 54 C32 54 16 46 16 34 L16 20 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M26 34 L30 38 L38 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Ασφαλείς<br>Συναλλαγές</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .trust-bar-snippet .product-trust-bar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: center;
+    padding: 10px 0 18px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .trust-bar-snippet .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    color: #171717;
+  }
+
+  .trust-bar-snippet .trust-item svg {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    color: #171717;
+  }
+
+  .trust-bar-snippet .trust-item span {
+    font-size: 14px;
+    line-height: 1.35;
+    font-weight: 500;
+    color: #171717;
+  }
+
+  @media (max-width: 640px) {
+    .trust-bar-snippet .product-trust-bar {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding-bottom: 14px;
+    }
+
+    .trust-bar-snippet .trust-item {
+      justify-content: flex-start;
+    }
+  }
+</style>
