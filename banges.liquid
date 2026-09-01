@@ -1,0 +1,94 @@
+<div class="product-trust-banner">
+  <div class="badge-wrap">
+    <img
+      class="trust-badge"
+      src="https://platinumhellas.gr/wp-content/uploads/2023/04/100-Badge.png.webp"
+      alt="100% εμπιστοσύνη"
+    >
+  </div>
+
+  <div class="banner-copy">
+    <div class="banner-title">100% Εγγύηση Επιστροφής Χρημάτων</div>
+    <div class="banner-link">Διαβάστε περισσότερα</div>
+  </div>
+</div>
+
+<style>
+  .product-trust-banner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 620px;
+    min-height: 62px;
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .product-trust-banner .badge-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    min-height: 62px;
+    padding: 4px 8px;
+    background: #ffffff;
+    border-right: 1px solid #ffffff;
+  }
+
+  .product-trust-banner .trust-badge {
+    display: block;
+    width: 62px;
+    height: auto;
+    max-height: 62px;
+    object-fit: contain;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .product-trust-banner .banner-copy {
+    flex: 1;
+    padding: 7px 12px 7px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+  }
+
+  .product-trust-banner .banner-title {
+    font-size: clamp(10px, 1.2vw, 12px);
+    line-height: 1.2;
+    color: #1a1a1a;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .product-trust-banner .banner-link {
+    margin-top: 0;
+    font-size: 8px;
+    color: #5b5b5b;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 600px) {
+    .product-trust-banner {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .product-trust-banner .badge-wrap {
+      width: 100%;
+      justify-content: flex-start;
+      border-right: 0;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 12px 16px;
+    }
+
+    .product-trust-banner .banner-copy {
+      padding: 14px 16px 16px;
+    }
+  }
+</style>
