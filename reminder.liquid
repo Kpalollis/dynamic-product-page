@@ -1,0 +1,220 @@
+<div class="reminder-block">
+  <div class="reminder-box">
+    <div class="reminder-row">
+      <div class="reminder-icon-wrap" aria-hidden="true">
+        <span class="reminder-icon">🔔</span>
+      </div>
+
+      <label for="reminder-delay" class="reminder-label">Πότε θέλεις να σε ειδοποιήσουμε;</label>
+
+      <div class="reminder-select-wrap">
+        <select id="reminder-delay" class="reminder-select" aria-label="Επιλογή υπενθύμισης">
+          <option value="30">Σε 30 ημέρες</option>
+          <option value="14">Σε 14 ημέρες</option>
+          <option value="7" selected>Σε 7 ημέρες</option>
+        </select>
+      </div>
+    </div>
+
+    <button
+      class="reminder-button"
+      id="reminder-btn"
+      type="button"
+      data-product-title="{{ product.title }}"
+      data-product-url="{{ shop.url }}{{ product.url }}"
+    >
+      Θύμισε μου να ξαναπαραγγείλω
+    </button>
+  </div>
+</div>
+
+<style>
+  .reminder-block {
+    margin: 28px 0 0;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .reminder-box {
+    width: 100%;
+    max-width: 620px;
+    padding: 18px 18px 14px;
+    background: #2f7d32 !important;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 14px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 20px rgba(29, 92, 33, 0.12);
+  }
+
+  .reminder-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 14px;
+  }
+
+  .reminder-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+  }
+
+  .reminder-icon {
+    font-size: 26px;
+    line-height: 1;
+    display: inline-block;
+    filter: brightness(0) invert(1);
+  }
+
+  .reminder-label {
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .reminder-select-wrap {
+    width: 190px;
+    flex-shrink: 0;
+  }
+
+  .reminder-select {
+    width: 100%;
+    min-height: 38px;
+    padding: 8px 34px 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.96);
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 500;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #1a1a1a 50%), linear-gradient(135deg, #1a1a1a 50%, transparent 50%);
+    background-position: calc(100% - 16px) calc(50% - 3px), calc(100% - 11px) calc(50% - 3px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    outline: none;
+  }
+
+  .reminder-select:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18);
+  }
+
+  .reminder-select option {
+    color: #1a1a1a;
+    background: #ffffff;
+  }
+
+  .reminder-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .reminder-button:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+  }
+
+  .reminder-button:active {
+    transform: translateY(0);
+  }
+
+  .reminder-button:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.28);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .reminder-row {
+      flex-wrap: wrap;
+    }
+
+    .reminder-label {
+      white-space: normal;
+      flex: 1 1 100%;
+      order: 2;
+    }
+
+    .reminder-select-wrap {
+      width: 100%;
+      order: 3;
+      flex: 1 1 100%;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    function initReminder() {
+      var btn = document.getElementById("reminder-btn");
+      var delaySelect = document.getElementById("reminder-delay");
+      if (!btn || !delaySelect) return;
+      if (btn.dataset.reminderBound === "true") return;
+
+      btn.dataset.reminderBound = "true";
+
+      btn.addEventListener("click", function () {
+        var productTitle = this.dataset.productTitle || "";
+        var productUrl = this.dataset.productUrl || "";
+        var delay = delaySelect.value || "7";
+        var email = window.prompt("Βάλε το email σου για να σου θυμίσουμε:");
+
+        if (!email || !email.trim()) {
+          return;
+        }
+
+        email = email.trim();
+
+        window._learnq = window._learnq || [];
+        window._learnq.push([
+          "identify",
+          {
+            $email: email,
+          },
+        ]);
+
+        setTimeout(function () {
+          if (window._learnq && Array.isArray(window._learnq)) {
+            window._learnq.push([
+              "track",
+              "Reminder Requested",
+              {
+                "Product Name": productTitle,
+                "Product URL": productUrl,
+                "Reminder Delay (days)": delay,
+              },
+            ]);
+          }
+        }, 500);
+
+        window.alert("Θα σου στείλουμε υπενθύμιση σε " + delay + " ημέρες!");
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initReminder);
+    } else {
+      initReminder();
+    }
+  })();
+</script>
