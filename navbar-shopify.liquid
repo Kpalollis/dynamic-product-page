@@ -1,0 +1,473 @@
+{% stylesheet %}
+  /* ===== NAVBAR STYLES ===== */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    padding: 0 2rem;
+    height: 70px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    z-index: 1000;
+  }
+
+  .navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .navbar-brand:hover {
+    color: #00d4ff;
+    transition: color 0.3s ease;
+  }
+
+  /* ===== NAV MENU ===== */
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    align-items: center;
+  }
+
+  .nav-item {
+    position: relative;
+    margin: 0;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 1.5rem;
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    height: 70px;
+    gap: 0.5rem;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(0, 212, 255, 0.1);
+    color: #00d4ff;
+  }
+
+  /* ===== ARROW STYLING FOR DROPDOWNS ===== */
+  .nav-arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid currentColor;
+    transition: transform 0.3s ease;
+    margin-left: 0.25rem;
+  }
+
+  .nav-item:hover .nav-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* ===== DROPDOWN MENU ===== */
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #0f3460;
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+    min-width: 220px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 0 0 8px 8px;
+    animation: slideDown 0.3s ease forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .nav-item:hover .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-item {
+    padding: 0.75rem 1.5rem;
+    color: #e0e0e0;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+  }
+
+  .dropdown-item:hover {
+    background-color: rgba(0, 212, 255, 0.2);
+    color: #00d4ff;
+    padding-left: 2rem;
+  }
+
+  /* ===== NESTED DROPDOWNS ===== */
+  .dropdown-submenu {
+    position: relative;
+  }
+
+  .dropdown-submenu .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    border-radius: 8px;
+  }
+
+  .dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-submenu > a::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 6px solid currentColor;
+    margin-left: 0.5rem;
+  }
+
+  /* ===== NAV RIGHT (Login, Cart, etc) ===== */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-left: auto;
+  }
+
+  .nav-button {
+    padding: 8px 1.2rem;
+    border: 2px solid #00d4ff;
+    background: transparent;
+    color: #00d4ff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-button:hover {
+    background-color: #00d4ff;
+    color: #1a1a2e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+  }
+
+  .nav-button.primary {
+    background-color: #00d4ff;
+    color: #1a1a2e;
+    border-color: #00d4ff;
+  }
+
+  .nav-button.primary:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+  }
+
+  .cart-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+  }
+
+  /* ===== MOBILE MENU TOGGLE ===== */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 5px;
+    padding: 0;
+  }
+
+  .menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: #00d4ff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  /* ===== RESPONSIVE DESIGN ===== */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-wrap: wrap;
+      height: auto;
+      padding: 1rem 1.5rem;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      gap: 0;
+      margin-top: 1rem;
+    }
+
+    .nav-menu.active {
+      display: flex;
+    }
+
+    .nav-item {
+      width: 100%;
+    }
+
+    .nav-link {
+      padding: 0.75rem 1.5rem;
+      height: auto;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link:hover {
+      background-color: rgba(0, 212, 255, 0.2);
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: static;
+      background: #0a2540;
+      box-shadow: none;
+      border-radius: 0;
+      animation: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .dropdown-menu.active {
+      display: block;
+      max-height: 500px;
+    }
+
+    .nav-item.active .dropdown-menu {
+      display: block;
+      max-height: 500px;
+    }
+
+    .nav-arrow {
+      transform: rotate(0deg);
+    }
+
+    .nav-item.active .nav-arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      position: static;
+      box-shadow: none;
+    }
+
+    .nav-right {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+{% endstylesheet %}
+
+<nav class="navbar">
+  <a href="/" class="navbar-brand">
+    {% if section.settings.logo %}
+      <img src="{{ section.settings.logo | image_url: width: 40 }}" alt="{{ shop.name }}" style="height: 40px; width: auto;">
+    {% else %}
+      🛍️
+    {% endif %}
+    {{ shop.name }}
+  </a>
+
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <ul class="nav-menu" id="navMenu">
+    <!-- Dynamic Menu from Shopify -->
+    {% if linklists[section.settings.menu].links.size > 0 %}
+      {% for link in linklists[section.settings.menu].links %}
+        <li class="nav-item{% if link.links.size > 0 %} has-dropdown{% endif %}">
+          <a href="{{ link.url }}" class="nav-link">
+            {{ link.title }}
+            {% if link.links.size > 0 %}
+              <span class="nav-arrow"></span>
+            {% endif %}
+          </a>
+
+          {% if link.links.size > 0 %}
+            <ul class="dropdown-menu">
+              {% for child_link in link.links %}
+                <li class="{% if child_link.links.size > 0 %}dropdown-submenu{% endif %}">
+                  <a href="{{ child_link.url }}" class="dropdown-item">
+                    {{ child_link.title }}
+                  </a>
+                  
+                  {% if child_link.links.size > 0 %}
+                    <ul class="dropdown-menu">
+                      {% for grandchild_link in child_link.links %}
+                        <li><a href="{{ grandchild_link.url }}" class="dropdown-item">{{ grandchild_link.title }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    {% endif %}
+
+    <!-- Right Navigation Section -->
+    <div class="nav-right">
+      <a href="{{ routes.search_url }}" class="nav-button">🔍 {{ section.settings.search_label }}</a>
+      
+      {% if customer %}
+        <span style="color: #e0e0e0;">👤 {{ customer.first_name }}</span>
+        <a href="{{ routes.account_url }}" class="nav-button">{{ section.settings.account_label }}</a>
+      {% else %}
+        <a href="{{ routes.account_login_url }}" class="nav-button">{{ section.settings.login_label }}</a>
+      {% endif %}
+
+      <a href="{{ routes.cart_url }}" class="nav-button primary">
+        🛒 {{ section.settings.cart_label }}
+        {% if cart.item_count > 0 %}
+          <span class="cart-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </ul>
+</nav>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+
+  menuToggle.addEventListener('click', function() {
+    navMenu.classList.toggle('active');
+  });
+
+  // Mobile dropdown toggle
+  document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+    item.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) {
+        const dropdownMenu = this.querySelector('.dropdown-menu');
+        if (dropdownMenu && e.target.closest('.nav-link')) {
+          e.preventDefault();
+          dropdownMenu.classList.toggle('active');
+        }
+      }
+    });
+  });
+
+  // Close mobile menu when clicking on a link
+  document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', function() {
+      if (window.innerWidth <= 768) {
+        navMenu.classList.remove('active');
+      }
+    });
+  });
+
+  // Close menu when resizing to desktop
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      navMenu.classList.remove('active');
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Navbar",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "search_label",
+      "label": "Search Button Label",
+      "default": "Search"
+    },
+    {
+      "type": "text",
+      "id": "login_label",
+      "label": "Login Button Label",
+      "default": "Login"
+    },
+    {
+      "type": "text",
+      "id": "account_label",
+      "label": "Account Button Label",
+      "default": "Account"
+    },
+    {
+      "type": "text",
+      "id": "cart_label",
+      "label": "Cart Button Label",
+      "default": "Cart"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Navbar"
+    }
+  ]
+}
+{% endschema %}
