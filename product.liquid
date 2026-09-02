@@ -75,12 +75,12 @@
             {% endif %}
 
             <div class="nutrition-row">
-              <div class="nutrition-label">
-                <span>{{ item.label }}</span>
-                <strong>{{ item.value }}%</strong>
+              <div class="nutrition-label" style="font-size: 1.12rem; line-height: 1.5;">
+                <span style="font-size: inherit;">{{ item.label }}</span>
+                <strong style="font-size: inherit;">{{ item.value }}%</strong>
               </div>
-              <div class="nutrition-bar">
-                <span style="width: {{ value }}%;">{{ item.value }}%</span>
+              <div class="nutrition-bar" style="height: 34px;">
+                <span style="width: {{ value }}%; font-size: 12px;">{{ item.value }}%</span>
               </div>
             </div>
           {% endfor %}
@@ -91,16 +91,16 @@
       {% if product.metafields.custom.prostheta_ana_kilo != blank or product.metafields.custom.thermides != blank %}
         <div class="info-grid">
           {% if product.metafields.custom.prostheta_ana_kilo != blank %}
-            <div class="info-card">
-              <strong>Πρόσθετα ανά Κιλό:</strong>
-              <p>{{ product.metafields.custom.prostheta_ana_kilo }}</p>
+            <div class="info-card" style="font-size: 1.1rem; line-height: 1.8;">
+              <strong style="font-size: 1.2rem;">Πρόσθετα ανά Κιλό:</strong>
+              <p style="font-size: 1.08rem; line-height: 1.8; margin: 0;">{{ product.metafields.custom.prostheta_ana_kilo }}</p>
             </div>
           {% endif %}
 
           {% if product.metafields.custom.thermides != blank %}
-            <div class="info-card">
-              <strong>Θερμίδες:</strong>
-              <p>{{ product.metafields.custom.thermides }}</p>
+            <div class="info-card" style="font-size: 1.1rem; line-height: 1.8;">
+              <strong style="font-size: 1.2rem;">Θερμίδες:</strong>
+              <p style="font-size: 1.08rem; line-height: 1.8; margin: 0;">{{ product.metafields.custom.thermides }}</p>
             </div>
           {% endif %}
         </div>
@@ -313,7 +313,7 @@
   }
 
   .info-card strong {
-    font-size: 0.95rem;
+    font-size: 1.02rem !important;
     font-weight: 700;
     color: var(--tab-text);
     margin: 0;
@@ -321,7 +321,7 @@
 
   .info-card p {
     margin: 0;
-    font-size: 0.96rem;
+    font-size: 1rem !important;
     line-height: 1.7;
     color: var(--tab-text);
   }
@@ -331,12 +331,12 @@
     gap: 16px;
     margin-top: 12px;
     padding: 18px 0;
-    font-size: 17px;
+    font-size: 17px !important;
   }
 
   [data-product-tabs] .nutrition-analysis h3 {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: 1.25rem !important;
     font-weight: 700;
     color: var(--tab-text);
   }
@@ -350,14 +350,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1rem;
+    font-size: 1rem !important;
     line-height: 1.5;
     color: var(--tab-text);
   }
 
   [data-product-tabs] .nutrition-label strong {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
 
   [data-product-tabs] .nutrition-bar {
@@ -378,7 +378,7 @@
     box-sizing: border-box;
     background: linear-gradient(90deg, #7aa45d 0%, #5d8940 100%);
     color: #fff;
-    font-size: 12px;
+    font-size: 12px !important;
     font-weight: 700;
     border-radius: 999px;
   }
@@ -386,7 +386,7 @@
   @media (min-width: 768px) {
     [data-product-tabs] .nutrition-label,
     [data-product-tabs] .nutrition-label strong {
-      font-size: 1.08rem;
+      font-size: 1.08rem !important;
     }
 
     [data-product-tabs] .nutrition-bar {
@@ -394,7 +394,7 @@
     }
 
     [data-product-tabs] .nutrition-bar span {
-      font-size: 13px;
+      font-size: 13px !important;
     }
   }
 
