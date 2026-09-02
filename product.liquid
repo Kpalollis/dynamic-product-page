@@ -1,6 +1,4 @@
 <div data-product-tabs>
-  {% render 'trust-bar-snippet' %}
-
   <nav>
     <button class="active" data-tab="info">ΠΛΗΡΟΦΟΡΙΕΣ</button>
     <button data-tab="description">ΠΕΡΙΓΡΑΦΗ</button>
@@ -13,6 +11,8 @@
     <div data-panel="info">
       <div class="product-info-content">
         <h1>{{ product.title }}</h1>
+
+        {% render 'reminder' %}
 
         {% if product.metafields.custom.info_text != blank %}
           {{ product.metafields.custom.info_text | metafield_tag }}
