@@ -1,107 +1,436 @@
-<nav class="navbar">
-  <a href="/" class="navbar-brand">
-    <span>🛍️</span> MyShop
-  </a>
+{% style %}
+  .mega-navbar {
+    position: relative;
+    z-index: 30;
+    background: linear-gradient(135deg, #1f7a3d 0%, #2f9d5f 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 6px 18px rgba(31, 122, 61, 0.18);
+  }
 
-  <button class="menu-toggle" id="menuToggle">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+  .mega-navbar__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
 
-  <ul class="nav-menu" id="navMenu">
-    <!-- Home Link -->
-    <li class="nav-item">
-      <a href="/" class="nav-link">Αρχική</a>
-    </li>
+  .mega-navbar__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
 
-    <!-- Products Dropdown -->
-    <li class="nav-item">
-      <a href="#" class="nav-link">
-        Προϊόντα
-        <span class="nav-arrow"></span>
-      </a>
-      <ul class="dropdown-menu">
-        <li><a href="/products/electronics" class="dropdown-item">📱 Ηλεκτρονικά</a></li>
-        <li><a href="/products/fashion" class="dropdown-item">👗 Ρούχα</a></li>
-        <li><a href="/products/home" class="dropdown-item">🏠 Σπίτι & Κήπος</a></li>
-        <li class="dropdown-submenu">
-          <a href="/products/sports" class="dropdown-item">⚽ Αθλητικά</a>
-          <ul class="dropdown-menu">
-            <li><a href="/products/sports/outdoor" class="dropdown-item">🏕️ Outdoor</a></li>
-            <li><a href="/products/sports/gym" class="dropdown-item">🏋️ Gym</a></li>
-          </ul>
-        </li>
+  .mega-navbar__brand img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .mega-navbar__menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 6px;
+  }
+
+  .mega-navbar__item {
+    position: relative;
+  }
+
+  .mega-navbar__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    color: rgba(255,255,255,0.92);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: 0.2s ease;
+    border-radius: 8px;
+  }
+
+  .mega-navbar__link:hover,
+  .mega-navbar__item:hover > .mega-navbar__link {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+  }
+
+  .mega-navbar__caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid currentColor;
+    display: inline-block;
+    transform: translateY(1px);
+  }
+
+  .mega-navbar__dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 760px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    padding: 20px 24px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.22s ease;
+    pointer-events: none;
+  }
+
+  .mega-navbar__item:hover > .mega-navbar__dropdown,
+  .mega-navbar__item:focus-within > .mega-navbar__dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .mega-navbar__columns {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  .mega-navbar__column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mega-navbar__heading {
+    display: inline-block;
+    color: #1e293b;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 4px;
+  }
+
+  .mega-navbar__sublist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mega-navbar__subitem a {
+    color: #374151;
+    text-decoration: none;
+    font-size: 0.88rem;
+  }
+
+  .mega-navbar__subitem a:hover {
+    color: #1f7a3d;
+  }
+
+  .mega-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+  }
+
+  .mega-navbar__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: transparent;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    transition: 0.2s ease;
+  }
+
+  .mega-navbar__button:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  .mega-navbar__button--primary {
+    background: #fff;
+    border-color: #fff;
+    color: #1f7a3d;
+  }
+
+  .mega-navbar__button--primary:hover {
+    background: #edfdf0;
+  }
+
+  .mega-navbar__toggle {
+    display: none;
+  }
+
+  @media screen and (max-width: 900px) {
+    .mega-navbar__toggle {
+      display: flex;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .mega-navbar__toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    .mega-navbar__menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 16px;
+      background: #1f7a3d;
+    }
+
+    .mega-navbar__menu.is-open {
+      display: flex;
+    }
+
+    .mega-navbar__item {
+      width: 100%;
+    }
+
+    .mega-navbar__link {
+      width: 100%;
+      justify-content: space-between;
+      padding: 12px 14px;
+    }
+
+    .mega-navbar__dropdown {
+      position: static;
+      min-width: 100%;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      padding: 12px 0 0;
+      box-shadow: none;
+      display: none;
+      pointer-events: auto;
+    }
+
+    .mega-navbar__item.is-open > .mega-navbar__dropdown {
+      display: block;
+    }
+
+    .mega-navbar__columns {
+      grid-template-columns: 1fr;
+    }
+
+    .mega-navbar__actions {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 12px;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .mega-navbar__button {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+{% capture children %}
+  {% content_for 'blocks' %}
+{% endcapture %}
+
+<nav class="mega-navbar" aria-label="Main navigation">
+  <div class="mega-navbar__inner">
+    <a href="{{ routes.root_url }}" class="mega-navbar__brand">
+      {% if section.settings.logo != blank %}
+        <img src="{{ section.settings.logo | image_url: width: 80 }}" alt="{{ shop.name }}" loading="lazy">
+      {% endif %}
+      <span>{{ shop.name }}</span>
+    </a>
+
+    <button class="mega-navbar__toggle" type="button" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    {% assign menu = linklists[section.settings.menu] %}
+
+    {% if menu != blank and menu.links.size > 0 %}
+      <ul class="mega-navbar__menu" id="mega-navbar-menu">
+        {% for link in menu.links %}
+          {% if link.links.size > 0 %}
+            <li class="mega-navbar__item">
+              <a href="{{ link.url }}" class="mega-navbar__link">
+                <span>{{ link.title }}</span>
+                <span class="mega-navbar__caret" aria-hidden="true"></span>
+              </a>
+
+              <div class="mega-navbar__dropdown">
+                <div class="mega-navbar__columns">
+                  {% for child in link.links %}
+                    <div class="mega-navbar__column">
+                      <a href="{{ child.url }}" class="mega-navbar__heading">{{ child.title }}</a>
+
+                      {% if child.links.size > 0 %}
+                        <ul class="mega-navbar__sublist">
+                          {% for grandchild in child.links %}
+                            <li class="mega-navbar__subitem">
+                              <a href="{{ grandchild.url }}">{{ grandchild.title }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </li>
+          {% else %}
+            <li class="mega-navbar__item">
+              <a href="{{ link.url }}" class="mega-navbar__link">{{ link.title }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
       </ul>
-    </li>
+    {% endif %}
 
-    <!-- Services Dropdown -->
-    <li class="nav-item">
-      <a href="#" class="nav-link">
-        Υπηρεσίες
-        <span class="nav-arrow"></span>
+    <div class="mega-navbar__actions">
+      <a href="{{ routes.search_url }}" class="mega-navbar__button">🔍 {{ section.settings.search_label }}</a>
+      {% if customer %}
+        <a href="{{ routes.account_url }}" class="mega-navbar__button">👤 {{ section.settings.account_label }}</a>
+      {% else %}
+        <a href="{{ routes.account_login_url }}" class="mega-navbar__button">👤 {{ section.settings.login_label }}</a>
+      {% endif %}
+      <a href="{{ routes.cart_url }}" class="mega-navbar__button mega-navbar__button--primary">
+        🛒 {{ section.settings.cart_label }}
+        {% if cart.item_count > 0 %}
+          <span>{{ cart.item_count }}</span>
+        {% endif %}
       </a>
-      <ul class="dropdown-menu">
-        <li><a href="/services/shipping" class="dropdown-item">🚚 Αποστολές</a></li>
-        <li><a href="/services/warranty" class="dropdown-item">🛡️ Εγγύηση</a></li>
-        <li><a href="/services/support" class="dropdown-item">💬 Υποστήριξη</a></li>
-        <li><a href="/services/returns" class="dropdown-item">↩️ Επιστροφές</a></li>
-      </ul>
-    </li>
-
-    <!-- About Dropdown -->
-    <li class="nav-item">
-      <a href="#" class="nav-link">
-        Σχετικά
-        <span class="nav-arrow"></span>
-      </a>
-      <ul class="dropdown-menu">
-        <li><a href="/about" class="dropdown-item">Σχετικά με εμάς</a></li>
-        <li><a href="/blog" class="dropdown-item">Blog</a></li>
-        <li><a href="/faq" class="dropdown-item">FAQ</a></li>
-        <li><a href="/contact" class="dropdown-item">Επικοινωνία</a></li>
-      </ul>
-    </li>
-
-    <!-- Right Section -->
-    <div class="nav-right">
-      <button class="nav-button">🔍 Αναζήτηση</button>
-      <a href="/login" class="nav-button">Σύνδεση</a>
-      <a href="/cart" class="nav-button primary">🛒 Καλάθι (0)</a>
     </div>
-  </ul>
+  </div>
 </nav>
 
 <script>
-  // Mobile menu toggle
-  document.getElementById('menuToggle').addEventListener('click', function() {
-    const navMenu = document.getElementById('navMenu');
-    navMenu.classList.toggle('active');
-  });
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.querySelector('.mega-navbar__toggle');
+    const menu = document.getElementById('mega-navbar-menu');
 
-  // Mobile dropdown toggle
-  document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', function(e) {
-      if (window.innerWidth <= 768) {
-        const dropdownMenu = this.querySelector('.dropdown-menu');
-        if (dropdownMenu) {
-          e.preventDefault();
-          dropdownMenu.classList.toggle('active');
-        }
-      }
-    });
-  });
+    if (toggle && menu) {
+      toggle.addEventListener('click', function () {
+        menu.classList.toggle('is-open');
+      });
+    }
 
-  // Close mobile menu when clicking on a link
-  document.querySelectorAll('.dropdown-item').forEach(item => {
-    item.addEventListener('click', function() {
-      if (window.innerWidth <= 768) {
-        document.getElementById('navMenu').classList.remove('active');
-      }
-    });
+    if (window.innerWidth <= 900) {
+      document.querySelectorAll('.mega-navbar__item').forEach(function (item) {
+        const link = item.querySelector('.mega-navbar__link');
+        const dropdown = item.querySelector('.mega-navbar__dropdown');
+
+        if (!link || !dropdown) return;
+
+        link.addEventListener('click', function (event) {
+          if (window.innerWidth <= 900) {
+            event.preventDefault();
+            item.classList.toggle('is-open');
+          }
+        });
+      });
+    }
   });
 </script>
 
-<style>
-  @import url('navbar.css');
-</style>
+{% schema %}
+{
+  "name": "Mega Navbar",
+  "class": "section-wrapper",
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    },
+    {
+      "type": "_divider"
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "search_label",
+      "label": "Search label",
+      "default": "Search"
+    },
+    {
+      "type": "text",
+      "id": "login_label",
+      "label": "Login label",
+      "default": "Login"
+    },
+    {
+      "type": "text",
+      "id": "account_label",
+      "label": "Account label",
+      "default": "Account"
+    },
+    {
+      "type": "text",
+      "id": "cart_label",
+      "label": "Cart label",
+      "default": "Cart"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mega Navbar"
+    }
+  ]
+}
+{% endschema %}
