@@ -326,58 +326,76 @@
     color: var(--tab-text);
   }
 
-  .nutrition-analysis {
+  [data-product-tabs] .nutrition-analysis {
     display: grid;
     gap: 16px;
     margin-top: 12px;
     padding: 18px 0;
+    font-size: 17px;
   }
 
-  .nutrition-analysis h3 {
+  [data-product-tabs] .nutrition-analysis h3 {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--tab-text);
   }
 
-  .nutrition-row {
+  [data-product-tabs] .nutrition-row {
     display: grid;
     gap: 8px;
   }
 
-  .nutrition-label {
+  [data-product-tabs] .nutrition-label {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.92rem;
+    font-size: 1rem;
+    line-height: 1.5;
     color: var(--tab-text);
   }
 
-  .nutrition-label strong {
+  [data-product-tabs] .nutrition-label strong {
     font-weight: 700;
+    font-size: 1rem;
   }
 
-  .nutrition-bar {
-    height: 26px;
+  [data-product-tabs] .nutrition-bar {
+    height: 32px;
     background: #ece7df;
     border-radius: 999px;
     overflow: hidden;
     border: 1px solid #ddd2c3;
   }
 
-  .nutrition-bar span {
+  [data-product-tabs] .nutrition-bar span {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    min-width: 36px;
+    min-width: 42px;
     height: 100%;
     padding: 0 10px;
     box-sizing: border-box;
     background: linear-gradient(90deg, #7aa45d 0%, #5d8940 100%);
     color: #fff;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     border-radius: 999px;
+  }
+
+  @media (min-width: 768px) {
+    [data-product-tabs] .nutrition-label,
+    [data-product-tabs] .nutrition-label strong {
+      font-size: 1.08rem;
+    }
+
+    [data-product-tabs] .nutrition-bar {
+      height: 36px;
+    }
+
+    [data-product-tabs] .nutrition-bar span {
+      font-size: 13px;
+    }
   }
 
   .dosologia-table {
